@@ -18,7 +18,7 @@ echo "** docker images"
 docker images
 
 echo "** make Dockerfile"
-cat <<'EOF' > Dockerfile
+cat <<EOF > Dockerfile
 FROM ruby:2.7.2
 
 ENV LANG C.UTF-8
