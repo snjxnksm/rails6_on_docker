@@ -18,7 +18,7 @@ echo "** docker images"
 docker images
 
 echo "** make Dockerfile"
-cat <<EOF > Dockerfile
+cat <<'EOF' > Dockerfile
 FROM ruby:2.7.2
 
 ENV LANG C.UTF-8
@@ -29,15 +29,15 @@ RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 ENV PATH /root/.yarn/bin:/root/.config/yarn/global/node_modules/.bin:$PATH
 
 # 作業ディレクトリの作成、設定
-RUN mkdir /app_name 
-ENV APP_ROOT /app_name
+RUN mkdir /app_sv 
+ENV APP_ROOT /app_sv
 WORKDIR $APP_ROOT
 
-# ホスト側（ローカル）のGemfileを追加する
+# # ホスト側（ローカル）のGemfileを追加する
 ADD ./Gemfile $APP_ROOT/Gemfile
 ADD ./Gemfile.lock $APP_ROOT/Gemfile.lock
 
-# Gemfileのbundle install 
+# # Gemfileのbundle install 
 RUN bundle install
 
 ADD . $APP_ROOT
@@ -52,7 +52,7 @@ cat <<EOF > Gemfile
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails', '~> 6.0.3'
+gem 'rails', '~> 6.0.1'
 EOF
 
 echo "** make Gemfile.lock"
@@ -74,7 +74,7 @@ services:
     build: .
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
-      - .:/app_name
+      - .:/app_sv
     ports:
       - '3000:3000'
     links:
