@@ -22,7 +22,7 @@ cat <<'EOF' > Dockerfile
 FROM ruby:2.7.2
 
 ENV LANG C.UTF-8
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs vim
 
 #yarnのセットアップ
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
