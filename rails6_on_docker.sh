@@ -69,6 +69,11 @@ services:
       MYSQL_DATABASE: root
     ports:
       - '3306:3306'
+    logging:
+      driver: "json-file" # defaults if not specified
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   web:
     build: .
@@ -79,6 +84,13 @@ services:
       - '3000:3000'
     links:
       - db
+    stdin_open: true
+    tty: true
+    logging:
+      driver: "json-file" # defaults if not specified
+      options:
+        max-size: "10m"
+        max-file: "3"
 EOF
 
 echo "** docker-compose run web rails new . --force --database=mysql"
